@@ -1,0 +1,112 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp9
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool döngü = true;
+            int pc = 0;
+            int insan = 0;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\t\t\t\tTaş-Kağıt-Makas Oyununa Hoşgeldiniz.");
+            Console.WriteLine("\t\t\t\t------------------------------------");
+            while(döngü)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Oynamak için seçtiğiniz şıkkın rakamını yazın ve enter'a basınız.");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine("1)Taş\n2)Kağıt\n3)Makas");
+                string[] secim = new string[3] { "Taş", "Kağıt", "Makas" };
+                Etiket:
+                Random rnd = new Random();
+                int n = rnd.Next(0,3);
+                string user = Console.ReadLine();
+                if(user != "1" && user != "2" && user != "3")
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Lütfen 1,2,3 seçeneklerinden birini seçiniz.");
+                    goto Etiket;
+                }
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Sizin seçiminiz:"+ secim[int.Parse(user) - 1]);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Bilgisayarın seçimi:"+ secim[n]);
+                if (secim[int.Parse(user) - 1] == "Taş" && secim[n] == "Kağıt")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Kaybettiniz.");
+                    pc += 1;
+                }
+                else if (secim[int.Parse(user) - 1] == "Taş" && secim[n] == "Makas")
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Kazandınız.");
+                    insan += 1;
+                }
+                else if (secim[int.Parse(user) - 1] == "Kağıt" && secim[n] == "Makas")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Kaybettiniz");
+                    pc += 1;
+                }
+                else if (secim[int.Parse(user) - 1] == "Kağıt" && secim[n] == "Taş")
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Kazandınız.");
+                    insan += 1;
+                }
+                else if (secim[int.Parse(user) - 1] == "Makas" && secim[n] == "Taş")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Kaybettiniz.");
+                    pc += 1;
+                }
+                else if (secim[int.Parse(user) - 1] == "Makas" && secim[n] == "Kağıt")
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Kazandınız");
+                    insan += 1;
+                }
+                else 
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Berabere.");
+                    pc += 1;
+                    insan += 1;
+                }
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Devam etmek için(E),Sonucu görmek için(H):");
+                string döngüKapatma = Console.ReadLine().ToUpper();
+                if (döngüKapatma != "E" && döngüKapatma != "e")
+                {
+                    döngü = false;
+                }
+            }
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Sizin skorunuz:" + insan);
+            Console.WriteLine("Bilgisayarın skoru:" + pc);
+            if (insan < pc)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("OYUNU KAYBETTİNİZ.");
+            }
+            else if (pc < insan)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("OYUNU KAZANDINIZ.");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("BERABERE KALDINIZ.");
+            }
+            Console.ReadKey();
+        }
+    }
+}
